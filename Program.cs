@@ -3,12 +3,7 @@ var app = builder.Build();
 
 ((IApplicationBuilder)app).Map("/branch", branch =>
 {
-  branch.UseMiddleware<Platform.QueryStringMiddleware>();
-
-  branch.Use(async (HttpContext context, Func<Task> next) =>
-  {
-    await context.Response.WriteAsync("Branch Middleware");
-  });
+  branch.Run(new Platform.QueryStringMiddleware().Invoke);
 });
 
 app.Use(async (context, next) =>

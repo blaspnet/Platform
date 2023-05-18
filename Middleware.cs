@@ -2,7 +2,9 @@ namespace Platform;
 
 public class QueryStringMiddleware
 {
-  private RequestDelegate next;
+  private RequestDelegate? next;
+
+  public QueryStringMiddleware() { }
 
   public QueryStringMiddleware(RequestDelegate nextDelegate)
   {
@@ -20,6 +22,9 @@ public class QueryStringMiddleware
       }
       await context.Response.WriteAsync("Class-based Middleware \n");
     }
-    await next(context);
+    if (next != null)
+    {
+      await next(context);
+    }
   }
 }
