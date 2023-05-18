@@ -12,6 +12,8 @@ app.Use(async (context, next) =>
   await next();
 });
 
+app.UseMiddleware<Platform.QueryStringMiddleware>();
+
 app.MapGet("/", () => "Hello World!");
 
 app.Run();
